@@ -195,3 +195,4 @@ dmypy.json
 .pyre/
 
 /static
+/media

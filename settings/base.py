@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'semester.apps.SemesterConfig',
     'common.apps.CommonConfig',
     'scholarship.apps.ScholarshipConfig',
-
+    'myauth.apps.AuthConfig',
     # 功能插件
     'rest_framework',
     'corsheaders',
@@ -65,6 +65,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# 引入自定义用户模型
+AUTH_USER_MODEL = "myauth.CustomUser"
 
 ROOT_URLCONF = 'urls'
 
@@ -191,7 +194,8 @@ SIMPLEUI_ICON = {
     '公告发布': 'fas fa-bullhorn',
     '奖学金评选':'fas fa-balance-scale',
     '奖学金管理':'fas fa-money-check-alt',
-    '奖学金申请':'fas fa-copy'
+    '奖学金申请':'fas fa-copy',
+    '用户管理':'fas fa-user'
 }
 
 # 静态加载资源

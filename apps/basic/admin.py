@@ -45,7 +45,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_filter = list_display
     fieldsets = fieldsets.StudentFieldSets
     # 修改外键样式为异步搜索,需要配置外键所在模型searchfield
-    autocomplete_fields = ['stu_tutor','stu_class']
+    autocomplete_fields = ['stu_tutor','stu_class','stu_usr']
 
     def get_form(self, request, obj=None, **args):
         """

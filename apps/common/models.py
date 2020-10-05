@@ -8,7 +8,7 @@ class Announcement(models.Model):
     ann_visibility = models.BooleanField(verbose_name="是否可见", default=False)
     ann_file = models.ManyToManyField('MyFile', verbose_name="关联文件", blank=True)
     ann_pubdate = models.DateField(verbose_name="发布时间",auto_now=True,null=True,blank=True)
-    ann_urgency = models.CharField(verbose_name="紧急程度",choices=modeltool.set_choices(["一般","紧急","置顶"]),default="一般",max_length=128)
+    ann_urgency = models.IntegerField(verbose_name="紧急程度",choices=([3,'普通'],[2,'紧急'],[1,'置顶']),default="一般")
 
     class Meta:
         verbose_name = "公告发布"

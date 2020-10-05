@@ -1,6 +1,10 @@
 from django.db import models
 from utils.modeltool import set_choices
+from django.contrib.auth import get_user_model
 
+# Create your views here.
+
+User = get_user_model()
 
 class StudentClass(models.Model):
     """
@@ -39,6 +43,7 @@ class Student(models.Model):
     """
     学生信息
     """
+    stu_usr = models.OneToOneField(User,verbose_name="关联用户",on_delete=models.CASCADE)
     stu_id = models.CharField(verbose_name="学号", max_length=128, null=True, blank=True)
     stu_name = models.CharField(verbose_name="姓名", max_length=128, null=True, blank=True)
     stu_college = models.CharField(verbose_name="学院", max_length=128, null=True, blank=True)

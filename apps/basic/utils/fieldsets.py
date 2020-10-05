@@ -55,8 +55,8 @@ EmploymentInlineFieldSets = (
 StudentFieldSets = (
     [None, {
         'fields': (
-            ('stu_id', 'stu_name', 'stu_gender'),
-            ('stu_college', 'stu_class'),
+            'stu_id','stu_usr', 'stu_name', 'stu_gender',
+            'stu_college', 'stu_class',
             'stu_major',
             'stu_tutor',
             'stu_birth',
@@ -72,14 +72,14 @@ StudentFieldSets = (
 )
 
 PovertyFieldSets = (
-    [None,{
-        'fields':(
+    [None, {
+        'fields': (
 
-            ('por_id','por_stu'),
+            ('por_id', 'por_stu'),
             'por_tel',
-            ('por_family1','por_family1_tel'),
+            ('por_family1', 'por_family1_tel'),
             'por_family1_job',
-            ('por_family2','por_family2_tel'),
+            ('por_family2', 'por_family2_tel'),
             'por_family2_job',
             'por_is_archived',
             'por_info',

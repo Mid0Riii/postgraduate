@@ -6,6 +6,6 @@ from .models import Announcement
 
 
 class AnnouncementList(generics.ListAPIView):
-    queryset = Announcement.objects.filter(ann_visibility=True)
+    queryset = Announcement.objects.filter(ann_visibility=True).order_by('ann_urgency')
     serializer_class = AnnouncementSerializers
     permission_classes = [permissions.IsAuthenticated]

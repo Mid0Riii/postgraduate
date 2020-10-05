@@ -14,5 +14,11 @@ class AnnouncementSerializers(serializers.ModelSerializer):
         """
         file_list=[]
         for f in obj.ann_file.all():
-            file_list.append(self.context['request'].build_absolute_uri(f.file_body.url))
+            file = {
+                "title":f.file_title,
+                "url":self.context['request'].build_absolute_uri(f.file_body.url)
+            }
+            file_list.append(file)
+        if file_list ==[]:
+            file_list=None
         return file_list
