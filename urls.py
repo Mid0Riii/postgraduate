@@ -26,6 +26,10 @@ urlpatterns = [
     path("favicon.ico",RedirectView.as_view(url="static/favicon.ico")),
     path('api/login/',obtain_jwt_token),
     path('api/comm/',include("common.urls")),
+    path('api/award/', include("award.urls")),
     path('api/basic/',include("basic.urls")),
     path('api/semester/',include("semester.urls")),
+    path('api/auth/',include("myauth.urls")),
+    path('api/scholarship/', include("scholarship.urls"))
+
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

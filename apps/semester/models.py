@@ -1,33 +1,32 @@
 from django.db import models
 from basic.models import Student, StudentClass
 from utils.modeltool import set_choices
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
 
 class Semester(models.Model):
     sem_name = models.CharField(verbose_name="学期名", max_length=128, null=True, blank=True)
+    sem_is_available = models.BooleanField(verbose_name="是否为当前学期", default=False, null=True)
+    sem_dep_status = models.CharField(max_length=5, verbose_name="离/返校状态", choices=set_choices(["离校", "返校", "关闭统计"]),
+                                      default="关闭统计")
 
     class Meta:
-        verbose_name = "学期管理"
+        verbose_name = "学期"
         verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.sem_name
 
-
-class DepartControl(models.Model):
-    # TODO 增加表单验证逻辑，确保不会有多个离校/返校同时启动
-    depc_sem = models.OneToOneField(Semester, verbose_name="学期名", on_delete=models.CASCADE, null=True, blank=True)
-    depc_dep_avai = models.BooleanField(verbose_name="是否开始离校", null=True, blank=True, default=False)
-    depc_arr_avai = models.BooleanField(verbose_name="是否开始返校", null=True, blank=True, default=False)
-
-    class Meta:
-        verbose_name = "离/返校控制"
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return str(self.depc_sem)
+    def clean(self):
+        if self.sem_is_available:
+            qs = Semester.objects.all()
+            for q in qs:
+                if q.sem_is_available:
+                    msg = ("当前已有一个学期({name})处在激活状态，在激活其他学期之前，必须将上个学期关闭").format(name=q.sem_name)
+                    raise ValidationError(_(msg))
 
 
 class Departure(models.Model):
@@ -36,7 +35,7 @@ class Departure(models.Model):
                                    blank=True)
     depart_datetime = models.DateTimeField(verbose_name="时间", auto_now_add=True)
     depart_loc = models.CharField(verbose_name="位置", max_length=128, null=True, blank=True)
-    depart_semster = models.ForeignKey(DepartControl, verbose_name="学期", on_delete=models.CASCADE, null=True,
+    depart_semster = models.ForeignKey(Semester, verbose_name="学期", on_delete=models.CASCADE, null=True,
                                        blank=True)
 
     class Meta:
@@ -61,7 +60,7 @@ class Score(models.Model):
     sco_score = models.CharField(verbose_name="分数", max_length=128, null=True, blank=True)
 
     class Meta:
-        verbose_name = "成绩录入"
+        verbose_name = "成绩"
         verbose_name_plural = verbose_name
 
     def __str__(self):

@@ -70,16 +70,17 @@ class Prize(models.Model):
     def __str__(self):
         return str(self.pri_stu) + "-" + str(self.pri_name)
 
+
 class Fund(models.Model):
-    fund_stu = models.ForeignKey(Student,verbose_name="学生",on_delete=models.CASCADE,null=True,blank=True)
-    fund_project_code = models.CharField(verbose_name="项目编号",max_length=128,null=True,blank=True)
-    fund_aca = models.CharField(verbose_name="学院",max_length=128,null=True,blank=True)
-    fund_leader = models.CharField(verbose_name="负责人",max_length=128,null=True,blank=True)
-    fund_name = models.CharField(verbose_name="项目名称",max_length=128,null=True,blank=True)
-    fund_level = models.CharField(verbose_name="学历层次",max_length=128,null=True,blank=True)
-    fund_type = models.CharField(verbose_name="学位类型",max_length=128,null=True,blank=True)
-    fund_grade = models.CharField(verbose_name="级别",max_length=128,null=True,blank=True)
-    fund_money = models.CharField(verbose_name="赞助金额(元)",max_length=128,null=True,blank=True)
+    fund_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
+    fund_project_code = models.CharField(verbose_name="项目编号", max_length=128, null=True, blank=True)
+    fund_aca = models.CharField(verbose_name="学院", max_length=128, null=True, blank=True)
+    fund_leader = models.CharField(verbose_name="负责人", max_length=128, null=True, blank=True)
+    fund_name = models.CharField(verbose_name="项目名称", max_length=128, null=True, blank=True)
+    fund_level = models.CharField(verbose_name="学历层次", max_length=128, null=True, blank=True)
+    fund_type = models.CharField(verbose_name="学位类型", max_length=128, null=True, blank=True)
+    fund_grade = models.CharField(verbose_name="级别", max_length=128, null=True, blank=True)
+    fund_money = models.CharField(verbose_name="赞助金额(元)", max_length=128, null=True, blank=True)
 
     class Meta:
         verbose_name = "专项资金"
@@ -88,11 +89,12 @@ class Fund(models.Model):
     def __str__(self):
         return str(self.fund_stu) + "-" + str(self.fund_name)
 
+
 class Honor(models.Model):
-    hon_stu = models.ForeignKey(Student,verbose_name="学生",on_delete=models.CASCADE,null=True,blank=True)
-    hon_name =models.CharField(verbose_name="荣誉称号名称",max_length=128,null=True,blank=True)
-    hon_year = models.CharField(verbose_name="颁发年份",max_length=128,null=True,blank=True)
-    hon_dep = models.CharField(verbose_name="颁发部门",max_length=128,null=True,blank=True)
+    hon_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
+    hon_name = models.CharField(verbose_name="荣誉称号名称", max_length=128, null=True, blank=True)
+    hon_year = models.CharField(verbose_name="颁发年份", max_length=128, null=True, blank=True)
+    hon_dep = models.CharField(verbose_name="颁发部门", max_length=128, null=True, blank=True)
 
     class Meta:
         verbose_name = "荣誉称号"

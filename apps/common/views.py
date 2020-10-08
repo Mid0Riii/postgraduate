@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from .serializers import AnnouncementSerializers
-from rest_framework import mixins
-from rest_framework import generics,permissions
+from rest_framework import generics,permissions,viewsets
 from .models import Announcement
+from utils.mixins import FormatListModelMixin,FormatRetrieveModelMixin
 
-
-class AnnouncementList(generics.ListAPIView):
+class AnnouncementViewset(viewsets.GenericViewSet,FormatRetrieveModelMixin,FormatListModelMixin):
     queryset = Announcement.objects.filter(ann_visibility=True).order_by('ann_urgency')
     serializer_class = AnnouncementSerializers
     permission_classes = [permissions.IsAuthenticated]

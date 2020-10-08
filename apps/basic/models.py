@@ -126,9 +126,11 @@ class Employment(models.Model):
 
 # 姓名、学号、联系方式、家庭成员及联系方式、家庭成员工作单位、是否为建档立卡户、家庭主要情况。
 class Poverty(models.Model):
+    """
+    贫困生信息
+    """
     por_stu = models.OneToOneField(Student, on_delete=models.CASCADE, verbose_name="学生", null=True, blank=True,
                                    unique=True)
-    por_id = models.CharField(verbose_name="学号", max_length=128, null=True, blank=True)
     por_tel = models.CharField(verbose_name="联系方式", max_length=128, null=True, blank=True)
     por_family1 = models.CharField(verbose_name="家庭成员1", max_length=128, null=True, blank=True)
     por_family1_tel = models.CharField(verbose_name="联系电话1", max_length=128, null=True, blank=True)

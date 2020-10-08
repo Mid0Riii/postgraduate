@@ -3,20 +3,21 @@ from .models import CustomUser
 from rest_framework_jwt.utils import jwt_decode_handler
 from .serializers import CustomUserSerializers
 from rest_framework import serializers
-from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework import permissions
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework import status
 from django.contrib.auth.backends import ModelBackend
-from rest_framework.utils.serializer_helpers import ReturnDict, ReturnList
 from rest_framework.exceptions import APIException
-
+from utils.drf import FormatResponse
 
 
 class CustomBackend(ModelBackend):
     """
     自定义用户验证
     """
+
     def authenticate(self, request, username=None, password=None, **kwargs):  # 重写这个函数
         try:
             user = CustomUser.objects.get(username=username)
@@ -32,44 +33,23 @@ class CustomBackend(ModelBackend):
             raise APIException(detail=detail)
 
 
-class CustomUserViewSet(viewsets.GenericViewSet):
-    serializer_class = CustomUserSerializers
-    queryset = CustomUser.objects.all()
+class UserView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
-    @action(methods=["post"], detail=False)
-    def signup(self, request):
-        serializer_class = CustomUserSerializers
-        rawData = request.data
-        username = rawData['username']
-        password = rawData['password']
-        phone = rawData['phone']
-        identity = rawData['identity']
-        r = CustomUser.objects.filter(username=username)
-        if r.exists():
-            return Response({"code": 400, "message": "该用户名已被注册", "data": ""}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            u = CustomUser.objects.create(username=username, phone=phone,identity=identity)
-            u.set_password(password)
-            u.save()
-            return Response({"code": 201, "message": "注册成功", "data": {"id":u.id,"identity":u.identity,"username": username, "password": password}},
-                            status=status.HTTP_201_CREATED)
+    def get(self, request):
+        usr = CustomUser.objects.get(id=request.user.id)
+        s = CustomUserSerializers(instance=usr)
+        data = s.data
+        data["password"]=""
+        return FormatResponse(data=data, msg="获取成功", code=200, status=status.HTTP_200_OK)
 
-    @action(methods=['post'],detail=False)
-    def updateUser(self, request):
-        rawData = request.data
-        new_password = rawData["password"]
-        phone = rawData['phone']
+    def post(self, request):
         try:
-            id = request.user.id
+            data = request.data
+            new_pwd = data["password"]
+            usr = CustomUser.objects.get(id=request.user.id)
+            usr.set_password(new_pwd)
+            usr.save()
+            return FormatResponse(data=data, msg="修改成功", code=200, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({"code": 400, "message": "错误", "data": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-        try:
-            q = CustomUser.objects.get(id=id)
-            q.set_password(new_password)
-            q.phone = phone
-            q.save()
-            return Response({"code": 200, "message": "修改成功", "data": ""}, status=status.HTTP_200_OK)
-        except Exception as e:
-            print(e)
-            return Response({"code": 400, "message": "错误", "data": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return FormatResponse(data=e, msg="修改失败", code=400, status=status.HTTP_400_BAD_REQUEST)

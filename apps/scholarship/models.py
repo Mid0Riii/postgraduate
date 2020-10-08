@@ -10,6 +10,8 @@ class ScholarshipBasic(models.Model):
     sch_type = models.CharField(verbose_name="奖学金类型", max_length=128,
                                 choices=set_choices(['国家奖学金', '省政府奖学金', '学业奖学金', '优秀奖学金']))
     sch_is_available = models.BooleanField(verbose_name="评选是否开始", default=False)
+    sch_pub_date = models.DateField(verbose_name="发布时间", auto_now_add=True)
+    sch_info = models.TextField(verbose_name="备注",null=True,blank=True)
 
     class Meta:
         verbose_name = "奖学金管理"
@@ -38,10 +40,10 @@ class ScholarshipApply(models.Model):
     class Meta:
         verbose_name = "奖学金申请"
         verbose_name_plural = verbose_name
-        ordering=['id']
+        ordering = ['id']
 
     def __str__(self):
-        return str(self.app_stu)+'-'+str(self.app_sch)
+        return str(self.app_stu) + '-' + str(self.app_sch)
 
     def save(self, *args, **kwargs):
         if self.app_review_results == "审核通过":

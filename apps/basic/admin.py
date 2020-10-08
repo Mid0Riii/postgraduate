@@ -88,8 +88,8 @@ class EmployAdmin(admin.ModelAdmin):
 @admin.register(Poverty)
 class PovertyAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Poverty._meta.get_fields() if field.name != "id"]
-    readonly_fields = ['por_stu', 'por_id', ]
-    list_filter = ["por_stu", "por_id", "por_is_archived"]
+    readonly_fields = ['por_stu', ]
+    list_filter = ["por_stu", "por_is_archived"]
     fieldsets = fieldsets.PovertyFieldSets
     autocomplete_fields = ['por_stu']
 

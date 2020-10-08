@@ -185,8 +185,9 @@ SIMPLEUI_ICON = {
     '获奖情况': 'fas fa-trophy',
     '论文': 'fas fa-file',
     '离/返校信息': 'fas fa-plane-departure',
+    '学期': 'fas fa-calendar-check',
     '学期管理': 'fas fa-calendar-check',
-    '成绩录入': 'fas fa-school',
+    '成绩': 'fas fa-school',
     '离/返校控制': 'fas fa-map-marked',
     '公告/文件管理': 'fas fa-bullhorn',
     '文件管理': 'fas fa-file-upload',
@@ -251,9 +252,9 @@ JWT_AUTH = {
 # JWT相关认证
 REST_FRAMEWORK = {
     # drf默认权限
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
