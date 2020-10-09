@@ -77,7 +77,7 @@ class Student(models.Model):
         # from employ.models import Employment
         Employment.objects.update_or_create(emp_stu=self, emp_id=self.stu_id, emp_gender=self.stu_gender,
                                             emp_loc=self.stu_location)
-        Poverty.objects.update_or_create(por_stu=self,por_id=self.stu_id,por_tel = self.stu_tel)
+        Poverty.objects.update_or_create(por_stu=self,por_tel = self.stu_tel)
 
 
 class Employment(models.Model):

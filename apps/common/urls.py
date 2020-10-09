@@ -4,7 +4,7 @@ from rest_framework import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register(r'addressbook', views.AnnouncementViewset, basename="announcement")
+router.register(r'ann', views.AnnouncementViewset, basename="announcement")
 
 urlpatterns = [
     path('', include(router.urls)),

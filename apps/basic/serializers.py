@@ -3,9 +3,12 @@ from rest_framework import serializers, fields
 
 
 class AddressSerializers(serializers.ModelSerializer):
+    stu_class = fields.SerializerMethodField()
+    def get_stu_class(self,obj):
+        return obj.stu_class.cls_name
     class Meta:
         model = Student
-        fields = ('id','stu_id', 'stu_name', 'stu_tel', 'stu_birth')
+        fields = ('id','stu_id','stu_class', 'stu_name', 'stu_tel', 'stu_birth')
         extra_kwargs={
             'id': {
                 'help_text': 'id'
@@ -21,6 +24,9 @@ class AddressSerializers(serializers.ModelSerializer):
             },
             'stu_birth': {
                 'help_text': '出生日期'
+            },
+            'stu_class': {
+                'help_text': '班级'
             },
         }
 
