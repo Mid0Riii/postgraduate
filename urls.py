@@ -16,20 +16,24 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import RedirectView
-from django.conf.urls import url,include
+from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.conf import settings
-from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
+from rest_framework.documentation import include_docs_urls
+from rest_framework.renderers import CoreJSONRenderer
 
 urlpatterns = [
-    path('', admin.site.urls),
-    path("favicon.ico",RedirectView.as_view(url="static/favicon.ico")),
-    path('api/login/',obtain_jwt_token),
-    path('api/comm/',include("common.urls")),
-    path('api/award/', include("award.urls")),
-    path('api/basic/',include("basic.urls")),
-    path('api/semester/',include("semester.urls")),
-    path('api/auth/',include("myauth.urls")),
-    path('api/scholarship/', include("scholarship.urls"))
+                  path('', admin.site.urls),
+                  path("favicon.ico", RedirectView.as_view(url="static/favicon.ico")),
+                  path('api/login/', obtain_jwt_token),
+                  path('api/comm/', include("common.urls")),
+                  path('api/award/', include("award.urls")),
+                  path('api/basic/', include("basic.urls")),
+                  path('api/semester/', include("semester.urls")),
+                  path('api/auth/', include("myauth.urls")),
+                  path('api/scholarship/', include("scholarship.urls")),
+                  url(r'^docs/', include_docs_urls(title='API接口文档',
+                                                   description="研究生管理系统后端API文档，后端返回标准格式{\n'code':'',\n'message':'',\n'data':''\n}\n")),
 
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

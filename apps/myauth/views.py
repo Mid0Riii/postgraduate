@@ -34,13 +34,17 @@ class CustomBackend(ModelBackend):
 
 
 class UserView(APIView):
+    """
+    get:获取当前登录的用户信息
+    post:修改用户密码
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         usr = CustomUser.objects.get(id=request.user.id)
         s = CustomUserSerializers(instance=usr)
         data = s.data
-        data["password"]=""
+        data["password"] = ""
         return FormatResponse(data=data, msg="获取成功", code=200, status=status.HTTP_200_OK)
 
     def post(self, request):

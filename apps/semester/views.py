@@ -15,6 +15,9 @@ User = get_user_model()
 
 
 class SemesterViewset(viewsets.GenericViewSet, FormatListModelMixin):
+    """
+    list:获取当前有效的学期信息
+    """
     def get_queryset(self):
         return Semester.objects.filter(sem_is_available=True)
 
@@ -23,6 +26,10 @@ class SemesterViewset(viewsets.GenericViewSet, FormatListModelMixin):
 
 
 class DepartureViewset(viewsets.GenericViewSet, FormatListModelMixin, SafeFormatCreateModelMixin):
+    """
+    list:获取登录用户填报的历史离/返校信息
+    create:为当前用户增加离/返校信息
+    """
     def get_queryset(self):
         return Departure.objects.filter(depart_stu__stu_usr=self.request.user.id)
 
@@ -32,6 +39,9 @@ class DepartureViewset(viewsets.GenericViewSet, FormatListModelMixin, SafeFormat
 
 
 class ScoreViewset(viewsets.GenericViewSet,FormatListModelMixin):
+    """
+    list:获取登录用户的分数信息
+    """
     def get_queryset(self):
         return Score.objects.filter(sco_stu__stu_usr=self.request.user.id)
     serializer_class = ScoreSerializers

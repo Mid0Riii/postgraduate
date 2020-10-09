@@ -7,3 +7,8 @@ class CustomUserSerializers(serializers.ModelSerializer):
         model = CustomUser
         fields = ('username',)
     read_only_fields =['username']
+    extra_kwargs={
+        'username': {
+            'help_text': '用户名'
+        },
+    }

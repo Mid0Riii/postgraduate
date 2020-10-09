@@ -39,13 +39,13 @@ class ClassAdmin(admin.ModelAdmin):
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
     actions = ["send_message"]
-    search_fields = ['stu_id','stu_name']
+    search_fields = ['stu_id', 'stu_name']
     list_display = ['stu_id', 'stu_name', 'stu_college', 'stu_class', "stu_tutor", 'stu_major', 'stu_gender', 'stu_tel',
                     'stu_birth']
     list_filter = list_display
     fieldsets = fieldsets.StudentFieldSets
     # 修改外键样式为异步搜索,需要配置外键所在模型searchfield
-    autocomplete_fields = ['stu_tutor','stu_class','stu_usr']
+    autocomplete_fields = ['stu_tutor', 'stu_class', 'stu_usr']
 
     def get_form(self, request, obj=None, **args):
         """
@@ -92,7 +92,6 @@ class PovertyAdmin(admin.ModelAdmin):
     list_filter = ["por_stu", "por_is_archived"]
     fieldsets = fieldsets.PovertyFieldSets
     autocomplete_fields = ['por_stu']
-
 
 
 admin.site.site_header = '研究生管理系统'

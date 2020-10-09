@@ -10,6 +10,9 @@ User = get_user_model()
 
 
 class AddressBookViewset(viewsets.GenericViewSet, FormatListModelMixin):
+    """
+    list:获取登录用户通讯录
+    """
     def get_queryset(self):
         user = self.request.user
         userclass = Student.objects.get(stu_usr=user).stu_class
@@ -19,7 +22,12 @@ class AddressBookViewset(viewsets.GenericViewSet, FormatListModelMixin):
     permission_classes = [permissions.IsAuthenticated, ]
 
 
-class PovertyViewset(viewsets.GenericViewSet, FormatRetrieveModelMixin, FormatUpdateModelMixin, FormatListModelMixin):
+class PovertyViewset(viewsets.GenericViewSet, FormatUpdateModelMixin, FormatListModelMixin):
+    """
+    list:获取登录用户填报的贫困生信息
+    update:贫困生信息
+    partial_update:局部修改贫困生信息
+    """
     def get_queryset(self):
         user = self.request.user.id
         return Poverty.objects.filter(por_stu=user)

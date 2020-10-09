@@ -2,9 +2,10 @@ from django.db import models
 from basic.models import Student
 
 
-# Create your models here.
-
 class Thesis(models.Model):
+    """
+    论文模型
+    """
     ths_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     ths_subject_code = models.CharField(verbose_name="所属学科代码", max_length=128, null=True, blank=True)
     ths_subject = models.CharField(verbose_name="所属学科名称", max_length=128, null=True, blank=True)
@@ -19,6 +20,9 @@ class Thesis(models.Model):
 
 
 class Patent(models.Model):
+    """
+    专利模型
+    """
     pat_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     pat_type = models.CharField(verbose_name="专利类别", max_length=128, null=True, blank=True)
     pat_loc = models.CharField(verbose_name="专利授权国家(地区)", max_length=128, null=True, blank=True)
@@ -40,6 +44,9 @@ class Patent(models.Model):
 
 
 class Scholarship(models.Model):
+    """
+    奖/助学金模型
+    """
     sch_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     sch_info = models.TextField(verbose_name="获奖情况和发表论文的情况", null=True, blank=True)
     sch_type = models.CharField(verbose_name="奖/助学金类型", max_length=128, null=True, blank=True)
@@ -55,6 +62,9 @@ class Scholarship(models.Model):
 
 
 class Prize(models.Model):
+    """
+    获奖情况模型
+    """
     pri_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     pri_name = models.CharField(verbose_name="获奖名称", max_length=128, null=True, blank=True)
     pri_project = models.CharField(verbose_name="获奖项目", max_length=128, null=True, blank=True)
@@ -72,6 +82,9 @@ class Prize(models.Model):
 
 
 class Fund(models.Model):
+    """
+    专项资金模型
+    """
     fund_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     fund_project_code = models.CharField(verbose_name="项目编号", max_length=128, null=True, blank=True)
     fund_aca = models.CharField(verbose_name="学院", max_length=128, null=True, blank=True)
@@ -91,6 +104,9 @@ class Fund(models.Model):
 
 
 class Honor(models.Model):
+    """
+    荣誉称号模型
+    """
     hon_stu = models.ForeignKey(Student, verbose_name="学生", on_delete=models.CASCADE, null=True, blank=True)
     hon_name = models.CharField(verbose_name="荣誉称号名称", max_length=128, null=True, blank=True)
     hon_year = models.CharField(verbose_name="颁发年份", max_length=128, null=True, blank=True)
