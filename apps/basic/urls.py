@@ -6,7 +6,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'addressbook', views.AddressBookViewset, basename="addressbook")
 router.register(r'poverty', views.PovertyViewset, basename="poverty")
-
+router.register(r'info', views.StudentViewset, basename='student')
 urlpatterns = [
     path('', include(router.urls)),
 ]

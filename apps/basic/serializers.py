@@ -71,3 +71,29 @@ class PovertySerializers(serializers.ModelSerializer):
                 'help_text': '家庭主要情况'
             },
         }
+
+class StudentSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ('id','stu_usr','stu_id','stu_name','stu_college','stu_major')
+        read_only_fields = ('id','stu_usr','stu_id')
+        extra_kwargs = {
+            'id': {
+                'help_text': 'id'
+            },
+            'stu_usr': {
+                'help_text': '关联用户id'
+            },
+            'stu_id': {
+                'help_text': '学号'
+            },
+            'stu_name': {
+                'help_text': '姓名'
+            },
+            'stu_college': {
+                'help_text': '学院'
+            },
+            'stu_major': {
+                'help_text': '专业'
+            },
+        }

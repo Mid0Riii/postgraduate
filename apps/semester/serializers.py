@@ -57,8 +57,10 @@ class DepartureSerializers(serializers.ModelSerializer):
 
     def validate_depart_type(self, depart_type):
         s = Semester.objects.get(sem_is_available=True)
-        if depart_type != s.sem_dep_status:
-            raise serializers.ValidationError('无效的返校/离校类型')
+        return s.sem_dep_status
+    def validate_depart_semster(self,depart_semster):
+        s = Semester.objects.get(sem_is_available=True)
+        return s
 
 
 class SemesterSerializers(serializers.ModelSerializer):

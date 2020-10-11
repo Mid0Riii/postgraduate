@@ -19,7 +19,7 @@ class ScholarshipViewset(viewsets.GenericViewSet, FormatListModelMixin):
 class ApplyViewset(viewsets.GenericViewSet, FormatListModelMixin, SafeFormatCreateModelMixin, FormatUpdateModelMixin,
                    FormatDestroyModelMixin, FormatRetrieveModelMixin):
     def get_queryset(self):
-        return ScholarshipApply.objects.filter(app_stu__stu_usr=self.request.user.id)
+        return ScholarshipApply.objects.filter(app_stu__stu_usr=self.request.user.id).order_by('-id')
     """
     list:获取登录用户发起的奖学金申请
     create:创建新的奖学金申请

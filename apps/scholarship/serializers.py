@@ -30,10 +30,21 @@ class ScholarshipSerializers(serializers.ModelSerializer):
 
 
 class ApplySerializers(serializers.ModelSerializer):
+    sch_title = fields.SerializerMethodField(label="奖学金名")
+
+    def get_sch_title(self,obj):
+        """
+        获取奖学金id对应奖学金名
+        """
+        if obj.app_sch!=None:
+            return obj.app_sch.sch_title
+        else:
+            return None
+
     class Meta:
         model = ScholarshipApply
         fields = (
-        'id', "app_sch", "app_stu", "app_tutor_score", "app_moral_score", "app_course_score", "app_academy_score",
+        'id', "app_sch", "app_stu",'sch_title', "app_tutor_score", "app_moral_score", "app_course_score", "app_academy_score",
         "app_social_score", "app_review_results", "app_general_score")
         read_only_fields = ("id", "app_review_results", "app_general_score")
         extra_kwargs = {
