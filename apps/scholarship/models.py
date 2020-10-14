@@ -47,8 +47,10 @@ class ScholarshipApply(models.Model):
 
     def save(self, *args, **kwargs):
         # if self.app_review_results == "审核通过":
-        general = self.app_tutor_score * 0.05 + self.app_moral_score * 0.05 + self.app_course_score * 0.1 + self.app_academy_score * 0.75 + self.app_social_score * 0.05
-        self.app_general_score = general
+        try:
+            general = self.app_tutor_score * 0.05 + self.app_moral_score * 0.05 + self.app_course_score * 0.1 + self.app_academy_score * 0.75 + self.app_social_score * 0.05
+            self.app_general_score = general
         # else:
-        #     self.app_general_score = 0
+        except Exception as e:
+            self.app_general_score = 0
         super().save(*args, **kwargs)
